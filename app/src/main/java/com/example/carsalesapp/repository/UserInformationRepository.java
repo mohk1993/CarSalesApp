@@ -1,4 +1,5 @@
 package com.example.carsalesapp.repository;
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -14,33 +15,49 @@ import java.util.List;
 public class UserInformationRepository {
 
     private String DB_NAME = "users";
-
+    private UserInformationDao userInformationDao;
+    private LiveData<List<UserInformation>> allUsers;
     private UserInformationDb userDb;
 
-    public UserInformationRepository(Context context) {
-        userDb = Room.databaseBuilder(context, UserInformationDb.class, DB_NAME).build();
+    public UserInformationRepository(Application application) {
+        UserInformationDb db = UserInformationDb.getDatabase(application);
+        userInformationDao = db.userDaoAccess();
+
+        allUsers = userInformationDao.getAllUsers();
+
+
     }
 
-    public void updateUser(UserInformation user)
+    public LiveData<List<UserInformation>> getAllData(){return allUsers;}
+        public void insertUser(UserInformation user)
     {
-        userDb.userDaoAccess().updateUser(user);
+        // This is important in order to run insert on the main thread
+        UserInformationDb.databaseWriteExecutor.execute(()->{
+            userInformationDao.insert(user);
+    });
     }
 
-    public void deleteUser(UserInformation user)
-    {
-        userDb.userDaoAccess().deleteUser(user);
-    }
+//    public UserInformationRepository(Context context) {
+//        userDb = Room.databaseBuilder(context, UserInformationDb.class, DB_NAME).build();
+//    }
+//
+//    public void updateUser(UserInformation user)
+//    {
+//        userDb.userDaoAccess().updateUser(user);
+//    }
+//
+//    public void deleteUser(UserInformation user)
+//    {
+//        userDb.userDaoAccess().deleteUser(user);
+//    }
+//
+//    public LiveData<UserInformation> getUser(String email){
+//        return userDb.userDaoAccess().getUser((email));
+//    }
+//
+//    public LiveData<List<UserInformation>> getAllUsers() {
+//        return userDb.userDaoAccess().getAllUsers();
+//    }
+//
 
-    public LiveData<UserInformation> getUser(String email){
-        return userDb.userDaoAccess().getUser((email));
-    }
-
-    public LiveData<List<UserInformation>> getAllUsers() {
-        return userDb.userDaoAccess().getAllUsers();
-    }
-
-    public void insertUser(UserInformation user)
-    {
-        userDb.userDaoAccess().insert(user);
-    }
 }

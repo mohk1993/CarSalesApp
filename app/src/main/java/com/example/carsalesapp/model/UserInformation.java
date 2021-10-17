@@ -8,12 +8,11 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-
 @Entity(tableName = "users")
-public class UserInformation implements Serializable {
+public class    UserInformation implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
+    private int id;
     @ColumnInfo(name = "email")
     private String email;
 
@@ -25,7 +24,23 @@ public class UserInformation implements Serializable {
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getEmail() {return this.email;}
 
     public String getPassword() {return this.password;}
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

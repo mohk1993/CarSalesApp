@@ -14,7 +14,7 @@ import java.util.List;
 
 @Dao
 public interface UserInformationDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(UserInformation user);
 
     // might have to remove LiveData later.

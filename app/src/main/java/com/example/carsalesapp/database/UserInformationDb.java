@@ -21,9 +21,9 @@ public abstract class UserInformationDb extends RoomDatabase {
 
     private static volatile UserInformationDb INSTANCE;
     private static final int NUMBER_OF_THREADS =4;
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static UserInformationDb getDatabase(final Context context)
+    public static UserInformationDb getDatabase(final Context context)
     {
         if (INSTANCE == null)
         {
@@ -46,9 +46,9 @@ public abstract class UserInformationDb extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 UserInformationDao dao = INSTANCE.userDaoAccess();
 
-                UserInformation user = new UserInformation("admin", "admin");
+                UserInformation user = new UserInformation("admin@admin", "admin");
                 dao.insert(user);
-                user = new UserInformation("user", "user");
+                user = new UserInformation("user@user", "user");
                 dao.insert(user);
             });
         }

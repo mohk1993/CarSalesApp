@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CarSalesApp</string>
+    <string name="loginButton">Login</string>
+    <string name="emailHint">Enter Email</string>
+    <string name="passwordHint">Enter Password</string>
+    <string name="empty">Enter information</string>
+    <string name="buttonLogin">Login</string>
 </resources>
