@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_window);
         setContentView(R.layout.activity_main);
         email = findViewById(R.id.emailId);
         password = findViewById(R.id.passwordId);

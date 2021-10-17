@@ -5,4 +5,9 @@
     <string name="passwordHint">Enter Password</string>
     <string name="empty">Enter information</string>
     <string name="buttonLogin">Login</string>
+    <string name="logIn_btn">Log In</string>
+    <string name="toregister_btn"><u>I don\'t have an account...</u></string>
+
+    <string name="register_btn">Register</string>
+    <string name="tologin_btn"><u>Sign in instead</u></string>
 </resources>
