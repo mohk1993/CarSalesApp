@@ -4,50 +4,71 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.carsalesapp.adapter.RecyclerViewAdapter;
 import com.example.carsalesapp.model.UserInformation;
 import com.example.carsalesapp.viewmodel.UserInformationViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    private EditText email;
-    private EditText password;
-    private Button login;
+//    private ListView listView;
+      private LiveData<List<UserInformation>> userList;
+//    private ArrayAdapter<String> arrayAdapter;
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
     private UserInformationViewModel userInformationViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_window);
         setContentView(R.layout.activity_main);
-        email = findViewById(R.id.emailId);
-        password = findViewById(R.id.passwordId);
-        login = findViewById(R.id.loginButton);
+        recyclerView = findViewById(R.id.recyclerViewId);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-         userInformationViewModel = new ViewModelProvider
-                .AndroidViewModelFactory(MainActivity.this
-                .getApplication()).create(UserInformationViewModel.class);
-        login.setOnClickListener(view -> {
-            if (!TextUtils.isEmpty(email.getText()) && !TextUtils.isEmpty(password.getText()))
-            {
-                UserInformation userInformation = new UserInformation
-                        (email.getText().toString(),password.getText().toString());
-                UserInformationViewModel.insert(userInformation);
-            }else {
-                Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
-            }
+
+         userInformationViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this
+         .getApplication()).create(UserInformationViewModel.class);
+
+        userInformationViewModel.getAllUsers().observe(this, userInformation -> {
+        // Set the adapter
+        recyclerViewAdapter = new RecyclerViewAdapter(userInformation,MainActivity.this);
+        recyclerView.setAdapter(recyclerViewAdapter);
         });
-
-
-//        UserInformationViewModel userInformationViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this
-//                .getApplication()).create(UserInformationViewModel.class);
-//        userInformationViewModel.getAllUsers().observe(this, userInformation -> {
-//            Log.d("Tag", "onCreate: " + userInformation.get(0).getEmail());
-//        });
     }
 }
+
+// ======================== Code used for testing and debugging ==============================
+
+/*            for (UserInformation userInformation1:userInformation){
+                Log.d("Tag", "onCreate: " + userInformation1.getEmail());
+                userArrayList.add(userInformation1.getEmail());
+            }
+            // Create array adapter
+            arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,userArrayList);
+
+            // Add to the list view
+            listView.setAdapter(arrayAdapter);*/
+//        listView = findViewById(R.id.listViewId);
+//        userArrayList = new ArrayList<>();
+       /* listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("List", "onItemClick: " + userArrayList.get(i)  );
+            }
+        });*/

@@ -3,17 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/activity_user_login.xml" value="0.264" />
-      </map>
-    </option>
-  </component>
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
         <entry key="..\:/Users/tonpm/OneDrive/Documentos/MisDocumentos/Clase/App Development/Project/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/tonpm/OneDrive/Documentos/MisDocumentos/Clase/App Development/Project/app/src/main/res/layout/login_window.xml" value="0.2" />
         <entry key="..\:/Users/tonpm/OneDrive/Documentos/MisDocumentos/Clase/App Development/Project/app/src/main/res/layout/register_window.xml" value="0.152" />
+        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/activity_login.xml" value="0.11676798378926039" />
+        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/activity_register.xml" value="0.12360688956433637" />
+        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/login_window.xml" value="0.25416666666666665" />
+        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/recycler_row.xml" value="0.264" />
+        <entry key="..\:/Year-4-FirstSemester/FundamentalsOfAppDevelopment/CarSalesApp/app/src/main/res/layout/register_window.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -10,4 +10,6 @@
 
     <string name="register_btn">Register</string>
     <string name="tologin_btn"><u>Sign in instead</u></string>
+    <string name="failLogin">Incorrect user name or password</string>
+    <string name="passNotMatch">Passwords not matching</string>
 </resources>
