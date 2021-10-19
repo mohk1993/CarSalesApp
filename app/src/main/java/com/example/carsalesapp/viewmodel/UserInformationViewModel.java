@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.carsalesapp.model.CarInformation;
 import com.example.carsalesapp.model.UserInformation;
+import com.example.carsalesapp.repository.CarInformationRepository;
 import com.example.carsalesapp.repository.UserInformationRepository;
 
 import java.util.List;
