@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carsalesapp.adapter.RecyclerViewAdapter;
+import com.example.carsalesapp.model.CarInformation;
 import com.example.carsalesapp.model.UserInformation;
+import com.example.carsalesapp.viewmodel.CarInformationViewModel;
 import com.example.carsalesapp.viewmodel.UserInformationViewModel;
 
 import java.util.ArrayList;
@@ -26,22 +28,22 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private ListView listView;
       private LiveData<List<UserInformation>> userList;
-//    private ArrayAdapter<String> arrayAdapter;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private UserInformationViewModel userInformationViewModel;
+    private CarInformationViewModel carInformationViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         recyclerView = findViewById(R.id.recyclerViewId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
+/*
          userInformationViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this
          .getApplication()).create(UserInformationViewModel.class);
 
@@ -49,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
         // Set the adapter
         recyclerViewAdapter = new RecyclerViewAdapter(userInformation,MainActivity.this);
         recyclerView.setAdapter(recyclerViewAdapter);
+        });
+
+ */
+
+        carInformationViewModel = new ViewModelProvider
+                .AndroidViewModelFactory(MainActivity.this.getApplication())
+                .create(CarInformationViewModel.class);
+
+        carInformationViewModel.getCars().observe(this, carInformation -> {
+            // Set the adapter
+            recyclerViewAdapter = new RecyclerViewAdapter(carInformation,MainActivity.this);
+            recyclerView.setAdapter(recyclerViewAdapter);
         });
     }
 }

@@ -11,17 +11,18 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carsalesapp.R;
+import com.example.carsalesapp.model.CarInformation;
 import com.example.carsalesapp.model.UserInformation;
 
 import java.util.List;
 import java.util.Objects;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapter.ViewHolder>{
-    private List<UserInformation> userList;
+    private List<CarInformation> carList;
     private Context context;
 
-    public RecyclerViewAdapter(List<UserInformation> userList, Context context) {
-        this.userList = userList;
+    public RecyclerViewAdapter(List<CarInformation> carList, Context context) {
+        this.carList = carList;
         this.context = context;
     }
 
@@ -35,20 +36,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        UserInformation userInformation = Objects.requireNonNull(userList.get(position));
-        holder.email.setText(userInformation.getEmail());
+        CarInformation carInformation = Objects.requireNonNull(carList.get(position));
+        holder.Model.setText(carInformation.getModel());
+        holder.Manufacturer.setText(carInformation.getManufacturer());
+        holder.Price.setText(carInformation.getPrice().toString());
     }
 
     @Override
     public int getItemCount() {
-        return Objects.requireNonNull(userList.size());
+        return Objects.requireNonNull(carList.size());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView email;
+        public TextView Model;
+        public TextView Manufacturer;
+        public TextView Price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            email = itemView.findViewById(R.id.recyclerEmailId);
+            Model = itemView.findViewById(R.id.model);
+            Manufacturer = itemView.findViewById(R.id.manufacturer);
+            Price = itemView.findViewById(R.id.price);
         }
     }
 }
