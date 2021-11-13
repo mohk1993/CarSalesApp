@@ -24,8 +24,6 @@ public class UserInformationRepository {
         userInformationDao = db.userDaoAccess();
 
         allUsers = userInformationDao.getAllUsers();
-
-
     }
 
     public LiveData<List<UserInformation>> getAllData(){return allUsers;}
