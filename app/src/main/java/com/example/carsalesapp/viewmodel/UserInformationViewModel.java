@@ -27,7 +27,6 @@ public class UserInformationViewModel extends AndroidViewModel {
     public static void insert(UserInformation userInformation) {repository.insertUser(userInformation);}
 
     public LiveData<UserInformation> getUser(String email) {return repository.getUser(email);}
-
     public static void updateUser(UserInformation userInformation){repository.updateUser(userInformation);}
 
     public static void delete(UserInformation userInformation){repository.deleteUser(userInformation);}

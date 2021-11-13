@@ -20,10 +20,8 @@ public interface UserInformationDao {
     // might have to remove LiveData later.
     @Query("SELECT * FROM users WHERE email=:email")
     LiveData<UserInformation> getUser(String email);
-
     @Query("SELECT * FROM users")
     LiveData<List<UserInformation>> getAllUsers();
-
     @Update
     void updateUser(UserInformation user);
 

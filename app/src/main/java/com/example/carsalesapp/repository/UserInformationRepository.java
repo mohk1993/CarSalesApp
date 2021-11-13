@@ -40,7 +40,6 @@ public class UserInformationRepository {
     public LiveData<UserInformation> getUser(String email){
         return userInformationDao.getUser(email);
     }
-
     public void updateUser(UserInformation userInformation) {
         UserInformationDb.databaseWriteExecutor.execute(()->userInformationDao.updateUser(userInformation));
     }
