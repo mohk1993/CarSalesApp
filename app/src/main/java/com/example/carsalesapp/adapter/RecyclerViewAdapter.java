@@ -47,6 +47,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         return Objects.requireNonNull(carList.size());
     }
 
+    public void addItem(CarInformation item)
+    {
+        carList.add(item);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView Model;
         public TextView Manufacturer;

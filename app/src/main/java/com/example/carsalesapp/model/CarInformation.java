@@ -24,6 +24,7 @@ public class CarInformation implements Serializable {
     @ColumnInfo(name = "price")
     private Double price;
 
+    //remake to be Description, @nullable link, price, city, mielage, poer, gearbox, date of manufacture, bodyType;
     public CarInformation(@NonNull String model, @NonNull String manufacturer, String description, @NonNull Double price) {
         this.model = model;
         this.manufacturer = manufacturer;
