@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/manufacturer"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/generalPadding"
@@ -32,14 +32,14 @@
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/model"
+                android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/generalPadding"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />

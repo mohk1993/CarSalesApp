@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private CarInformationViewModel carInformationViewModel;
-    private String responseString;
     private RequestQueue requestQueue;
 
     private static final int InternetRequestCode = 1;
@@ -67,12 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
         loadMoreVehiclesButton = findViewById(R.id.loadMoreVehiclesButton);
         loadMoreVehiclesButton.setOnClickListener(v -> {
-            //does not seem to work
-            if (ContextCompat.checkSelfPermission( this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED)
-                QueueRequestToOutsources();
-            else
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.INTERNET}, InternetRequestCode);
+            loadMoreVehiclesButtonPressed();
         });
+    }
+
+    private void loadMoreVehiclesButtonPressed()
+    {
+        // not sure if works
+        if (ContextCompat.checkSelfPermission( this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED)
+            QueueRequestToOutsources();
+        else
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.INTERNET}, InternetRequestCode);
     }
 
     @SuppressLint("MissingSuperCall")
@@ -100,19 +104,18 @@ public class MainActivity extends AppCompatActivity {
     private void QueueRequestToOutsources()
     {
         RemoveMoreVehiclesButton();
-        String request = "https://en.autoplius.lt/ads/used-cars?order_by=3&order_direction=DESC";
+        String request = "https://en.autoplius.lt/ads/used-cars?order_by=3&order_direction=DESC"; // for further requests add &page_nr=2
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         ParseVehicles(response);
-                        //recyclerView.add(vehicles);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseString = "Fail";
+
             }
         });
 
@@ -148,13 +151,17 @@ public class MainActivity extends AppCompatActivity {
         Double price = 0.0;
         String city = "";
         String link = "";
+        String imageLink = "";
 
         for(int i = 0; i<list.size(); i++)
         {
             String line = list.get(i);
             if (line.contains("<div class=\"line1\">"))
             {
-                description = list.get(i+1).trim();
+                String descriptionLine = list.get(i+1).trim();
+                if (descriptionLine.contains("</div>"))
+                    descriptionLine = descriptionLine.replace("</div>", "");
+                description = descriptionLine.trim();
             }
             else if (line.contains("<div class=\"pricing-container\">"))
             {
@@ -163,12 +170,21 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (line.contains("<div class=\"item-parameters\">"))
             {
-                String gasType = list.get(i+2);
-                String volumeAndPower = list.get(i+4);
-                String gearbox = list.get(i+5);
-                String kilometrage = list.get(i+6);
-                String carType = list.get(i+7);
-                //same for all but 2 first;
+                String gasLine = list.get(i+2);
+                String gasType = gasLine.substring(0, gasLine.length() - 7).trim();
+
+                String volumeAndPowerLine = list.get(i+4);
+                String volumeAndPower = volumeAndPowerLine.substring(0, volumeAndPowerLine.length() - 7).trim();
+
+                String gearboxLine = list.get(i+5);
+                String gearbox = gearboxLine.substring(6, gearboxLine.length() - 7);
+
+                String kilometrageLine = list.get(i+6);
+                String kilometrage = kilometrageLine.substring(6, kilometrageLine.length() - 7);
+
+                String bodyTypeLine = list.get(i+7);
+                String bodyType = bodyTypeLine.substring(6, bodyTypeLine.length() - 7);
+
                 String cityLine = list.get(i+8).trim();
                 city = cityLine.substring(6,cityLine.length()-7);
             }
@@ -177,12 +193,19 @@ public class MainActivity extends AppCompatActivity {
                 String trimmed = line.trim();
                 link = trimmed.substring(trimmed.indexOf("=")+2, trimmed.length() - 1);
             }
+            else if(line.contains("img class"))
+            {
+                String identifier = "src=\"";
+                imageLink = line.substring(line.indexOf(identifier)+identifier.length()-1, line.length() -  8);
+            }
         }
-        CarInformation carInfo = new CarInformation("test1", "test2", description, price);
+        if (price != 0.0 && !description.isEmpty())
+        {
+            CarInformation carInfo = new CarInformation(description, city, price, link, imageLink);
 
-        //add
-        recyclerViewAdapter.addItem(carInfo);
-        recyclerViewAdapter.notifyDataSetChanged();
+            recyclerViewAdapter.addItem(carInfo);
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -191,12 +214,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         if(requestQueue != null)
             requestQueue.cancelAll(InternetRequestCode);
-    }
-
-    // need to show some ui with Yes/No options for granting permission;
-    private void showInContextUI()
-    {
-
     }
 }
 

@@ -37,8 +37,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CarInformation carInformation = Objects.requireNonNull(carList.get(position));
-        holder.Model.setText(carInformation.getModel());
-        holder.Manufacturer.setText(carInformation.getManufacturer());
+        holder.Description.setText(carInformation.getDescription());
+        holder.City.setText(carInformation.getCity());
         holder.Price.setText(carInformation.getPrice().toString());
     }
 
@@ -53,13 +53,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView Model;
-        public TextView Manufacturer;
+        public TextView Description;
+        public TextView City;
         public TextView Price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            Model = itemView.findViewById(R.id.model);
-            Manufacturer = itemView.findViewById(R.id.manufacturer);
+            Description = itemView.findViewById(R.id.description);
+            City = itemView.findViewById(R.id.city);
             Price = itemView.findViewById(R.id.price);
         }
     }
