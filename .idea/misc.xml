@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/KTU/App development/CarSalesApp/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/KTU/App development/CarSalesApp/app/src/main/res/layout/activity_main.xml" value="0.20729166666666668" />
+        <entry key="..\:/KTU/App development/CarSalesApp/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/KTU/App development/CarSalesApp/app/src/main/res/layout/login_window.xml" value="0.36666666666666664" />
         <entry key="..\:/KTU/App development/CarSalesApp/app/src/main/res/layout/recycler_row.xml" value="0.33" />
+        <entry key="..\:/KTU/App development/CarSalesApp/app/src/main/res/layout/register_window.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tonpm/OneDrive/Documentos/MisDocumentos/Clase/App Development/Project/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/tonpm/OneDrive/Documentos/MisDocumentos/Clase/App Development/Project/app/src/main/res/layout/login_window.xml" value="0.2" />
         <entry key="..\:/Users/tonpm/OneDrive/Documentos/MisDocumentos/Clase/App Development/Project/app/src/main/res/layout/register_window.xml" value="0.152" />
@@ -22,5 +26,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.20729166666666668" />
+      </ProjectState>
+    </option>
   </component>
 </project>

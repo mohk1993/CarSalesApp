@@ -12,11 +12,14 @@ public class CarInformation implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    @ColumnInfo(name = "model")
-    private String model;
+    @ColumnInfo(name = "link")
+    private String link;
 
-    @ColumnInfo(name = "manufacturer")
-    private String manufacturer;
+    @ColumnInfo(name = "imageLink")
+    private String imageLink;
+
+    @ColumnInfo(name = "city")
+    private String city;
 
     @ColumnInfo(name = "description")
     private String description;
@@ -24,11 +27,13 @@ public class CarInformation implements Serializable {
     @ColumnInfo(name = "price")
     private Double price;
 
-    public CarInformation(@NonNull String model, @NonNull String manufacturer, String description, @NonNull Double price) {
-        this.model = model;
-        this.manufacturer = manufacturer;
+    public CarInformation(@NonNull String description, String city, @NonNull Double price, String link, String imageLink) {
         this.description = description;
+        this.city = city;
         this.price = price;
+
+        this.link = link;
+        this.imageLink = imageLink;
     }
 
     public int getId() {
@@ -37,22 +42,6 @@ public class CarInformation implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
     }
 
     public String getDescription() {
@@ -70,4 +59,16 @@ public class CarInformation implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public String getCity() { return city; }
+
+    public void setCity(String city) { this.city = city; }
+
+    public String getLink() { return link == null ? "" : link; }
+
+    public void setLink(String link) { this.link = link; }
+
+    public String getImageLink() { return imageLink == null ? "" : imageLink; }
+
+    public void setImageLink(String imageLink) { this.imageLink = imageLink; }
 }
