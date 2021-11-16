@@ -45,6 +45,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         holder.Manufacturer.setText(carEntity.getManufacturer());
         holder.Price.setText(carEntity.getPrice().toString());
         holder.Owner.setText(carEntity.getFK());
+        CarInformation carInformation = Objects.requireNonNull(carList.get(position));
+        holder.Description.setText(carInformation.getDescription());
+        holder.City.setText(carInformation.getCity());
+        holder.Price.setText(carInformation.getPrice().toString());
     }
 
     @Override
@@ -56,6 +60,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         OnCardClickListener onCardClickListener;
         public TextView Model;
         public TextView Manufacturer;
+    public void addItem(CarInformation item)
+    {
+        carList.add(item);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView Description;
+        public TextView City;
         public TextView Price;
         public TextView Owner;
         public ViewHolder(@NonNull View itemView, OnCardClickListener onCardClickListener) {

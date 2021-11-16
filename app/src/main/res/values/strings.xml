@@ -15,4 +15,6 @@
     <string name="Add">addCarBtn</string>
     <string name="menu_title">add</string>
     <string name="signout">Signout</string>
+
+    <string name="loadMoreVehicles_btn">Load more vehicles</string>
 </resources>
