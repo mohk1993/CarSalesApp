@@ -17,7 +17,6 @@ public class UserInformationRepository {
     private String DB_NAME = "users";
     private UserInformationDao userInformationDao;
     private LiveData<List<UserInformation>> allUsers;
-    private UserInformationDb userDb;
 
     public UserInformationRepository(Application application) {
         UserInformationDb db = UserInformationDb.getDatabase(application);
@@ -35,8 +34,8 @@ public class UserInformationRepository {
         });
     }
 
-    public LiveData<UserInformation> getUser(String email){
-        return userInformationDao.getUser(email);
+    public LiveData<UserInformation> getUser(String email, String password){
+        return userInformationDao.getUser(email, password);
     }
     public void updateUser(UserInformation userInformation) {
         UserInformationDb.databaseWriteExecutor.execute(()->userInformationDao.updateUser(userInformation));

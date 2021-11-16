@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".MainActivity"
+    android:background="@color/white_blue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/addCarTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update Car Information"
+            android:textColor="@color/link_blue"
+            android:textSize="34sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/carImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginRight="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp">
+
+                <Button
+                    android:id="@+id/selectImage"
+                    android:layout_width="209dp"
+                    android:layout_height="wrap_content"
+                    android:text="Choose image"
+
+                    android:backgroundTint="@color/dark_blue"
+                    app:icon="@android:drawable/ic_menu_gallery" />
+
+                <Button
+                    android:id="@+id/photoCar"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:text="Take a photo"
+                    android:backgroundTint="@color/dark_blue"
+                    app:icon="@android:drawable/ic_menu_camera" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/modelInput"
+            android:autofillHints="model"
+            android:inputType="text"
+            android:hint="Model..."
+            android:textSize="24sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/manufacturerSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+
+        <EditText
+            android:id="@+id/manufactureInput"
+            android:autofillHints="description"
+            android:inputType="text"
+            android:hint="Manufacture..."
+            android:textSize="24sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/descInput"
+            android:autofillHints="description"
+            android:inputType="text"
+            android:hint="Description..."
+            android:textSize="24sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:id="@+id/priceInput"
+            android:autofillHints="price"
+            android:inputType="numberDecimal"
+            android:hint="Price..."
+            android:textSize="24sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/updateCarBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="@color/dark_blue"
+                android:text="Update"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/deleteCarBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/design_default_color_error"
+                android:text="Delete"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

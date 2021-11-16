@@ -3,14 +3,12 @@ package com.example.carsalesapp.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "cars")
-public class CarInformation implements Serializable {
-
+@Entity(tableName = "cars1")
+public class CarEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "model")
@@ -25,12 +23,18 @@ public class CarInformation implements Serializable {
     @ColumnInfo(name = "price")
     private Double price;
 
+    @ColumnInfo(name = "FK")
+    private String FK;
 
-    public CarInformation(@NonNull String model, @NonNull String manufacturer, String description, @NonNull Double price) {
+    public CarEntity() {
+    }
+
+    public CarEntity(@NonNull String model, @NonNull String manufacturer, String description, @NonNull Double price, @NonNull String FK) {
         this.model = model;
         this.manufacturer = manufacturer;
         this.description = description;
         this.price = price;
+        this.FK = FK;
     }
 
     public int getId() {
@@ -73,4 +77,11 @@ public class CarInformation implements Serializable {
         this.price = price;
     }
 
+    public String getFK() {
+        return FK;
+    }
+
+    public void setFK(String FK) {
+        this.FK = FK;
+    }
 }

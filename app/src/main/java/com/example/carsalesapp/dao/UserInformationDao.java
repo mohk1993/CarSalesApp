@@ -18,8 +18,8 @@ public interface UserInformationDao {
     void insert(UserInformation user);
 
     // might have to remove LiveData later.
-    @Query("SELECT * FROM users WHERE email=:email")
-    LiveData<UserInformation> getUser(String email);
+    @Query("SELECT * FROM users WHERE users.email==:email and users.password==:password")
+    LiveData<UserInformation> getUser(String email,String password);
     @Query("SELECT * FROM users")
     LiveData<List<UserInformation>> getAllUsers();
     @Update

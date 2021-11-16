@@ -12,4 +12,7 @@
     <string name="tologin_btn"><u>Sign in instead</u></string>
     <string name="failLogin">Incorrect user name or password</string>
     <string name="passNotMatch">Passwords not matching</string>
+    <string name="Add">addCarBtn</string>
+    <string name="menu_title">add</string>
+    <string name="signout">Signout</string>
 </resources>

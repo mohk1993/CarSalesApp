@@ -1,8 +1,11 @@
 package com.example.carsalesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,31 +22,36 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carsalesapp.adapter.RecyclerViewAdapter;
+import com.example.carsalesapp.model.CarEntity;
 import com.example.carsalesapp.model.CarInformation;
 import com.example.carsalesapp.model.UserInformation;
 import com.example.carsalesapp.viewmodel.CarInformationViewModel;
+import com.example.carsalesapp.viewmodel.CarViewModel;
 import com.example.carsalesapp.viewmodel.UserInformationViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnCardClickListener{
 
-      private LiveData<List<UserInformation>> userList;
+    public static final String CAR_ID = "car_id";
+    public static final String USER_EMAIL = "user_email";
+    public  String CarFK;
+    private LiveData<List<UserInformation>> userList;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-    private UserInformationViewModel userInformationViewModel;
-    private CarInformationViewModel carInformationViewModel;
+    private CarViewModel carViewModel;
 
+    private Button addPost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        addPost = findViewById(R.id.addCadrId);
         recyclerView = findViewById(R.id.recyclerViewId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 /*
          userInformationViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this
          .getApplication()).create(UserInformationViewModel.class);
@@ -55,16 +64,57 @@ public class MainActivity extends AppCompatActivity {
 
  */
 
-        carInformationViewModel = new ViewModelProvider
+        carViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(MainActivity.this.getApplication())
-                .create(CarInformationViewModel.class);
+                .create(CarViewModel.class);
 
-        carInformationViewModel.getCars().observe(this, carInformation -> {
+        carViewModel.getCars().observe(this, carEntities -> {
             // Set the adapter
-            recyclerViewAdapter = new RecyclerViewAdapter(carInformation,MainActivity.this);
+            recyclerViewAdapter = new RecyclerViewAdapter(carEntities,MainActivity.this,this);
             recyclerView.setAdapter(recyclerViewAdapter);
         });
+
+        Bundle userData = getIntent().getExtras();
+        if(userData!=null){
+            CarFK = userData.getString(LoginActivity.USER_EMAIL);
+        }
+        addPost.setOnClickListener(view -> {
+            Intent addCar = new Intent(MainActivity.this,AddCarActivity.class);
+            startActivity(addCar);
+        });
     }
+
+   /* @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add:
+                Intent addCar = new Intent(this, AddCarActivity.class);
+                startActivity(addCar);
+                break;
+            case R.id.action_signout:
+                Intent logout = new Intent(this, LoginActivity.class);
+                startActivity(logout);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
+
+    @Override
+    public void ocCardClick(int position) {
+        CarEntity carEntity = Objects.requireNonNull(carViewModel.allCars.getValue().get(position));
+        Log.d("Tag","onCardClick" + carEntity.getId());
+        Intent intent = new Intent(MainActivity.this,UpdateCarInfoActivity.class);
+        intent.putExtra(CAR_ID,carEntity.getId());
+        intent.putExtra(USER_EMAIL,CarFK);
+        startActivity(intent);
+    }
+
 }
 
 // ======================== Code used for testing and debugging ==============================
