@@ -57,12 +57,12 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
             if(data!=null){FK = data.getString(MainActivity.USER_EMAIL);}
             Log.d("FK", "onCreate:FK " + FK);
             if (!TextUtils.isEmpty(model) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(price)
-                && !TextUtils.isEmpty(manufacturer))
+                    && !TextUtils.isEmpty(manufacturer))
             {
-                    CarEntity carEntity = new CarEntity(model,manufacturer,description,priceVal,FK);
-                    CarViewModel.insert(carEntity);
-                    Intent carAdded = new Intent(AddCarActivity.this, MainActivity.class);
-                    startActivity(carAdded);
+                CarEntity carEntity = new CarEntity(model,manufacturer,description,priceVal,FK);
+                CarViewModel.insert(carEntity);
+                Intent carAdded = new Intent(AddCarActivity.this, MainActivity.class);
+                startActivity(carAdded);
             }else
             {
                 Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
