@@ -4,8 +4,12 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -35,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter recyclerViewAdapter;
     private CarInformationViewModel carInformationViewModel;
     private RequestQueue requestQueue;
+    private int PageNumber = 1;
+    private LinearLayoutManager manager;
+    private ProgressBar progressBar;
+
+    private boolean isButtonAvailable = false;
+    private boolean isScrolling = false;
+    int currentItems, totalItems, scrollOutItems;
+
+    List<CarInformationViewModel> items = new ArrayList<>();
 
     private static final int InternetRequestCode = 1;
 
@@ -45,11 +58,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestQueue = Volley.newRequestQueue(MainActivity.this);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        manager = new LinearLayoutManager(this);
+
+        progressBar = findViewById(R.id.progressBar);
         recyclerView = findViewById(R.id.recyclerViewId);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(manager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                    isScrolling = true;
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                currentItems = manager.getChildCount();
+                totalItems = manager.getItemCount();
+                scrollOutItems = manager.findFirstVisibleItemPosition();
+
+                if (isScrolling && (currentItems + scrollOutItems == totalItems) && !isButtonAvailable)
+                {
+                    isScrolling = false;
+                    QueueRequestToOutsources();
+                }
+            }
+        });
 
 
         carInformationViewModel = new ViewModelProvider
@@ -74,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
     {
         // not sure if works
         if (ContextCompat.checkSelfPermission( this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED)
+        {
+            RemoveMoreVehiclesButton();
             QueueRequestToOutsources();
+        }
         else
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.INTERNET}, InternetRequestCode);
     }
@@ -99,13 +139,14 @@ public class MainActivity extends AppCompatActivity {
     {
         ViewGroup parentView = (ViewGroup) loadMoreVehiclesButton.getParent();
         parentView.removeView(loadMoreVehiclesButton);
+        isButtonAvailable = false;
     }
 
     private void QueueRequestToOutsources()
     {
-        RemoveMoreVehiclesButton();
-        String request = "https://en.autoplius.lt/ads/used-cars?order_by=3&order_direction=DESC"; // for further requests add &page_nr=2
-
+        progressBar.setVisibility(View.VISIBLE);
+        String request = "https://en.autoplius.lt/ads/used-cars?order_by=3&order_direction=DESC&page_nr=" + PageNumber;// for further requests add &page_nr=2
+        PageNumber = PageNumber + 1;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, request,
                 new Response.Listener<String>() {
                     @Override
@@ -134,7 +175,12 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(line.contains("</a>"))
                 {
-                    AddCarFromStrings(list);
+                    try{
+                        AddCarFromStrings(list);
+                    }
+                    catch (Exception ex) {
+                        Toast.makeText(this, "Failed to load vehicle", Toast.LENGTH_SHORT);
+                    }
                     list.clear();
                 }
                 else if(!line.trim().isEmpty())
@@ -143,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
             else if (line.contains("<div class=\"list-items\">"))
                 started = true;
         }
+        progressBar.setVisibility(View.GONE);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     private void AddCarFromStrings(List<String> list)
@@ -204,7 +252,6 @@ public class MainActivity extends AppCompatActivity {
             CarInformation carInfo = new CarInformation(description, city, price, link, imageLink);
 
             recyclerViewAdapter.addItem(carInfo);
-            recyclerViewAdapter.notifyDataSetChanged();
         }
     }
 
