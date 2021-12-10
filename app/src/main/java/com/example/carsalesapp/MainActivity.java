@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import util.CarApi;
+
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnCardClickListener{
 
     public static final String CAR_ID = "car_id";
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addPost = findViewById(R.id.addCadrId);
+        //addPost = findViewById(R.id.addCadrId);
         recyclerView = findViewById(R.id.recyclerViewId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,36 +76,38 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             recyclerView.setAdapter(recyclerViewAdapter);
         });
 
+        CarApi carApi = CarApi.getInstance();
         Bundle userData = getIntent().getExtras();
         if(userData!=null){
-            CarFK = userData.getString(LoginActivity.USER_EMAIL);
+            carApi.setUserName(userData.getString(LoginActivity.USER_EMAIL));
         }
-        addPost.setOnClickListener(view -> {
-            Intent addCar = new Intent(MainActivity.this,AddCarActivity.class);
-            startActivity(addCar);
-        });
+//        addPost.setOnClickListener(view -> {
+//            Intent addCar = new Intent(MainActivity.this,AddCarActivity.class);
+//            startActivity(addCar);
+//        });
     }
 
-   /* @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+            getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.action_add:
                 Intent addCar = new Intent(this, AddCarActivity.class);
                 startActivity(addCar);
-                break;
+                return true;
             case R.id.action_signout:
                 Intent logout = new Intent(this, LoginActivity.class);
                 startActivity(logout);
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
     @Override
     public void ocCardClick(int position) {

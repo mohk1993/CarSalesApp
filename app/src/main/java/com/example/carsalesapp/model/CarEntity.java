@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "cars1")
+@Entity(tableName = "cars2")
 public class CarEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -26,15 +26,27 @@ public class CarEntity implements Serializable {
     @ColumnInfo(name = "FK")
     private String FK;
 
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
+
     public CarEntity() {
     }
 
-    public CarEntity(@NonNull String model, @NonNull String manufacturer, String description, @NonNull Double price, @NonNull String FK) {
+    public CarEntity(@NonNull String model, @NonNull String manufacturer, String description, @NonNull Double price, @NonNull String FK, byte[] image) {
         this.model = model;
         this.manufacturer = manufacturer;
         this.description = description;
         this.price = price;
         this.FK = FK;
+        this.image = image;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public int getId() {

@@ -33,10 +33,14 @@ public class UserInformationRepository {
             userInformationDao.insert(user);
         });
     }
+    public boolean isValidAccount(String email, final String password)
+    {
 
-    public LiveData<UserInformation> getUser(String email, String password){
-        return userInformationDao.getUser(email, password);
+        UserInformation userInformation = userInformationDao.getAccount(email);
+        return userInformation.getPassword().equals(password);
     }
+    public LiveData <UserInformation> getUser(String email, String password){
+       return userInformationDao.getUser(email, password); }
     public void updateUser(UserInformation userInformation) {
         UserInformationDb.databaseWriteExecutor.execute(()->userInformationDao.updateUser(userInformation));
     }

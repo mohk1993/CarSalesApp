@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carsalesapp.R;
+import com.example.carsalesapp.converters.Converters;
 import com.example.carsalesapp.model.CarEntity;
 import com.example.carsalesapp.model.CarInformation;
 import com.example.carsalesapp.model.UserInformation;
@@ -46,6 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         holder.Manufacturer.setText(carEntity.getManufacturer());
         holder.Price.setText(carEntity.getPrice().toString());
         holder.Owner.setText(carEntity.getFK());
+        holder.carImage.setImageBitmap(Converters.ByteToBitMap(carEntity.getImage()));
     }
 
     @Override
@@ -59,12 +62,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         public TextView Manufacturer;
         public TextView Price;
         public TextView Owner;
+        public ImageView carImage;
         public ViewHolder(@NonNull View itemView, OnCardClickListener onCardClickListener) {
             super(itemView);
             Model = itemView.findViewById(R.id.model);
             Manufacturer = itemView.findViewById(R.id.manufacturer);
             Price = itemView.findViewById(R.id.price);
             Owner = itemView.findViewById(R.id.userName);
+            carImage = itemView.findViewById(R.id.recyclerCarImage);
             this.onCardClickListener = onCardClickListener;
             itemView.setOnClickListener(this);
         }

@@ -22,6 +22,8 @@ public interface UserInformationDao {
     LiveData<UserInformation> getUser(String email,String password);
     @Query("SELECT * FROM users")
     LiveData<List<UserInformation>> getAllUsers();
+    @Query("SELECT * FROM users WHERE users.email LIKE :email")
+    UserInformation getAccount(String email);
     @Update
     void updateUser(UserInformation user);
 

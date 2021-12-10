@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity"
     android:background="@color/white_blue">
+
+
+    <TextView
+        android:id="@+id/userNameId"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,51 +22,39 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <TextView
-            android:id="@+id/addCarTittle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add Car"
-            android:textSize="48dp"
             android:textColor="@color/link_blue"/>
+        <ImageView
+            android:id="@+id/carImageId"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/carImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginRight="10dp"/>
-
-            <LinearLayout
+            <Button
+                android:id="@+id/TakePhotoBtnId"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="Take Photo" />
 
-                <Button
-                    android:id="@+id/selectImage"
-                    android:layout_width="209dp"
-                    android:layout_height="wrap_content"
-                    android:text="Choose image"
-
-                    android:backgroundTint="@color/dark_blue"
-                    app:icon="@android:drawable/ic_menu_gallery" />
-
-                <Button
-                    android:id="@+id/photoCar"
-                    android:layout_width="210dp"
-                    android:layout_height="wrap_content"
-                    android:text="Take a photo"
-                    android:backgroundTint="@color/dark_blue"
-                    app:icon="@android:drawable/ic_menu_camera" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/selectImageBtnId"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="Add Photo" />
         </LinearLayout>
+
 
         <EditText
             android:id="@+id/modelInput"
@@ -80,14 +74,16 @@
             android:textSize="24sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/descInput"
-            android:autofillHints="description"
-            android:inputType="text"
-            android:hint="Description..."
-            android:textSize="24sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="100dp"
+            android:autofillHints="description"
+            android:hint="Description..."
+            android:inputType="text"
+            android:textAlignment="textStart"
+            android:textSize="24sp" />
 
 
         <EditText
@@ -100,11 +96,11 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/updateCarBtn"
+            android:id="@+id/addCarBtnId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/dark_blue"
-            android:text="Add"
+            android:text="Publish"
             android:textSize="24sp" />
     </LinearLayout>
 

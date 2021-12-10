@@ -18,13 +18,13 @@ public interface CarInfoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(CarEntity carInfo);
 
-    @Query("Delete FROM cars1")
+    @Query("Delete FROM cars2")
     void deleteAll();
 
-    @Query("SELECT * FROM cars1")
+    @Query("SELECT * FROM cars2")
     LiveData<List<CarEntity>> getAllCars();
 
-    @Query("SELECT * FROM cars1 WHERE cars1.id == :id")
+    @Query("SELECT * FROM cars2 WHERE cars2.id == :id")
     LiveData<CarEntity> get(int id);
 
     @Update
