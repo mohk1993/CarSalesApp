@@ -100,10 +100,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             case R.id.action_add:
                 Intent addCar = new Intent(this, AddCarActivity.class);
                 startActivity(addCar);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
             case R.id.action_signout:
                 Intent logout = new Intent(this, LoginActivity.class);
                 startActivity(logout);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         intent.putExtra(CAR_ID,carEntity.getId());
         intent.putExtra(USER_EMAIL,CarFK);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }
