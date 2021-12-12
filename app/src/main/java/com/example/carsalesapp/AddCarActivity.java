@@ -55,7 +55,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
     private CarViewModel carViewModel;
     private Uri imageUri;
     private Button TakePhotoBtnId;
-    Bitmap imageBitmap;
+    Bitmap imageBitmap;º
     byte[] imageByte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
