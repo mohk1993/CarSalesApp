@@ -1,5 +1,6 @@
 package com.example.carsalesapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -10,11 +11,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +31,7 @@ import com.example.carsalesapp.model.CarEntity;
 import com.example.carsalesapp.viewmodel.CarViewModel;
 
 import util.CarApi;
+import util.ImageApi;
 
 public class UpdateCarInfoActivity extends AppCompatActivity {
     public static final int GALLERY_CODE = 0;
@@ -60,6 +65,7 @@ public class UpdateCarInfoActivity extends AppCompatActivity {
         updateCarImageId = findViewById(R.id.updateCarImageId);
         UpdateImageBtnId = findViewById(R.id.UpdateImageBtnId);
         update_take_image_btn_id = findViewById(R.id.update_take_image_btn_id);
+
         carViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(UpdateCarInfoActivity.this.getApplication())
                 .create(CarViewModel.class);
@@ -147,7 +153,10 @@ public class UpdateCarInfoActivity extends AppCompatActivity {
             carEntity.setPrice(priceVal);
             carEntity.setManufacturer(manufacturer);
             carEntity.setFK(CarApi.getInstance().getUserName());
-            carEntity.setImage(Converters.BitMapToByte(imageBitmap));
+            updateCarImageId.invalidate();
+            BitmapDrawable drawable = (BitmapDrawable) updateCarImageId.getDrawable();
+            Bitmap bitMap = drawable.getBitmap();
+            carEntity.setImage(Converters.BitMapToByte(bitMap));
             if (isDelete)
                 CarViewModel.delete(carEntity);
             else
@@ -157,5 +166,29 @@ public class UpdateCarInfoActivity extends AppCompatActivity {
         {
             Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_add:
+                Intent addCar = new Intent(this, AddCarActivity.class);
+                startActivity(addCar);
+                return true;
+            case R.id.action_signout:
+                Intent logout = new Intent(this, LoginActivity.class);
+                startActivity(logout);
+                return true;
+            case R.id.myPostsId:
+                Intent currentUserActivity = new Intent(this, CurrentUserActivity.class);
+                startActivity(currentUserActivity);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

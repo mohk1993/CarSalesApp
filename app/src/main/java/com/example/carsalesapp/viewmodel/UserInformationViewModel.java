@@ -17,7 +17,7 @@ public class UserInformationViewModel extends AndroidViewModel {
 
     public static UserInformationRepository repository;
     public final LiveData<List<UserInformation>> allUsers;
-
+    public LiveData <UserInformation> user;
     public UserInformationViewModel (@NonNull Application application)
     {
         super(application);
@@ -28,7 +28,13 @@ public class UserInformationViewModel extends AndroidViewModel {
     public LiveData<List<UserInformation>> getAllUsers() {return allUsers;}
     public static void insert(UserInformation userInformation) {repository.insertUser(userInformation);}
 
-    public static LiveData <UserInformation> getUser(String email, String password) {return repository.getUser(email, password);}
+    public LiveData <UserInformation> getUser(String email, String password) {
+        user = repository.getUser(email, password);
+        return user;
+    }
+    public LiveData <UserInformation> registerUser(String email) {
+        return  repository.registerUser(email);
+    }
     public static void updateUser(UserInformation userInformation){repository.updateUser(userInformation);}
     public static boolean checkValidLogin(String username, String password)
     {

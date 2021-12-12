@@ -14,94 +14,100 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-            android:textColor="@color/link_blue"/>
-        <ImageView
-            android:id="@+id/carImageId"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/logo" />
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            android:textColor="@color/link_blue"/>
+
+            <ImageView
+                android:id="@+id/carImageId"
+                android:layout_width="fill_parent"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/logo" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/TakePhotoBtnId"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="Take Photo" />
+
+                <Button
+                    android:id="@+id/selectImageBtnId"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="Add Photo" />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/modelInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="model"
+                android:hint="Model..."
+                android:inputType="text"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/manufactureInput"
+                android:autofillHints="description"
+                android:inputType="text"
+                android:hint="Manufacture..."
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/descInput"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:autofillHints="description"
+                android:hint="Description..."
+                android:inputType="text"
+                android:textAlignment="textStart"
+                android:textSize="24sp" />
+
+
+            <EditText
+                android:id="@+id/priceInput"
+                android:autofillHints="price"
+                android:inputType="numberDecimal"
+                android:hint="Price..."
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <Button
-                android:id="@+id/TakePhotoBtnId"
+                android:id="@+id/addCarBtnId"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:layout_marginRight="5dp"
-                android:text="Take Photo" />
-
-            <Button
-                android:id="@+id/selectImageBtnId"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:text="Add Photo" />
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_blue"
+                android:text="Publish"
+                android:textSize="24sp" />
         </LinearLayout>
-
-
-        <EditText
-            android:id="@+id/modelInput"
-            android:autofillHints="model"
-            android:inputType="text"
-            android:hint="Model..."
-            android:textSize="24sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <EditText
-            android:id="@+id/manufactureInput"
-            android:autofillHints="description"
-            android:inputType="text"
-            android:hint="Manufacture..."
-            android:textSize="24sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/descInput"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:autofillHints="description"
-            android:hint="Description..."
-            android:inputType="text"
-            android:textAlignment="textStart"
-            android:textSize="24sp" />
-
-
-        <EditText
-            android:id="@+id/priceInput"
-            android:autofillHints="price"
-            android:inputType="numberDecimal"
-            android:hint="Price..."
-            android:textSize="24sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/addCarBtnId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/dark_blue"
-            android:text="Publish"
-            android:textSize="24sp" />
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

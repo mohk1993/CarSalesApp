@@ -29,6 +29,11 @@ public class CarRepository {
         return allCars;
     }
 
+    public LiveData<List<CarEntity>> getAllCurrentUsrCars(String currentUser)
+    {
+        return carInfoDao.getAllCurrentUsrCars(currentUser);
+    }
+
     public void insert(CarEntity carEntity)
     {
         // This is important in order to run insert on the main thread

@@ -22,13 +22,15 @@ import com.example.carsalesapp.model.UserInformation;
 import java.util.List;
 import java.util.Objects;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapter.ViewHolder>{
+public class CurrentUserRecyclerView extends RecyclerView.Adapter <CurrentUserRecyclerView.ViewHolder>{
+    private OnCardClickListener onCardClickListener;
     private List<CarEntity> carList;
     private Context context;
 
-    public RecyclerViewAdapter(List<CarEntity> carList, Context context) {
+    public CurrentUserRecyclerView(List<CarEntity> carList, Context context,OnCardClickListener onCardClickListener) {
         this.carList = carList;
         this.context = context;
+        this.onCardClickListener = onCardClickListener;
     }
 
     @NonNull
@@ -36,7 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_row,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,onCardClickListener);
     }
 
     @Override
@@ -54,22 +56,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         return Objects.requireNonNull(carList.size());
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        OnCardClickListener onCardClickListener;
         public TextView Model;
         public TextView Manufacturer;
         public TextView Price;
         public TextView Owner;
         public ImageView carImage;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnCardClickListener onCardClickListener) {
             super(itemView);
             Model = itemView.findViewById(R.id.model);
             Manufacturer = itemView.findViewById(R.id.manufacturer);
             Price = itemView.findViewById(R.id.price);
             Owner = itemView.findViewById(R.id.userName);
             carImage = itemView.findViewById(R.id.recyclerCarImage);
+            this.onCardClickListener = onCardClickListener;
+            itemView.setOnClickListener(this);
         }
 
-
+        @Override
+        public void onClick(View view) {
+            onCardClickListener.ocCardClick(getAdapterPosition());
+        }
     }
 
+    public interface OnCardClickListener{
+        void ocCardClick(int position);
+
+    }
 }

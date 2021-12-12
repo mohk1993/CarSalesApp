@@ -24,6 +24,9 @@ public interface CarInfoDao {
     @Query("SELECT * FROM cars2")
     LiveData<List<CarEntity>> getAllCars();
 
+    @Query("SELECT * FROM cars2 WHERE cars2.FK==:currentUser")
+    LiveData<List<CarEntity>> getAllCurrentUsrCars(String currentUser);
+
     @Query("SELECT * FROM cars2 WHERE cars2.id == :id")
     LiveData<CarEntity> get(int id);
 

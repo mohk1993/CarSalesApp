@@ -45,19 +45,22 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confPassword))
             {
-                if (password.equals(confPassword))
-                {
-                    UserInformation userInformation = new UserInformation(email,password);
-                    UserInformationViewModel.insert(userInformation);
-                    Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(toLogin);
-                }else {
-                    Toast.makeText(this,R.string.passNotMatch,Toast.LENGTH_SHORT).show();
-                }
+                userInformationViewModel.registerUser(email).observe(this, userInformation -> {
+                    if ((password.equals(confPassword)) && userInformation == null )
+                    {
+                        UserInformation userInformation1 = new UserInformation(email,password);
+                        UserInformationViewModel.insert(userInformation1);
+                        Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(toLogin);
+                    }else {
+                        Toast.makeText(this,R.string.passNotMatch,Toast.LENGTH_SHORT).show();
+                    }
+                });
             }else
             {
                 Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 }
