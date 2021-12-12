@@ -4,16 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -74,6 +80,12 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
                 .AndroidViewModelFactory(AddCarActivity.this.getApplication())
                 .create(CarViewModel.class);
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("My Notification", "My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
         addCarBtn.setOnClickListener(v -> {
             String model = modelInput.getText().toString().trim();
             String description = descInput.getText().toString().trim();
@@ -93,6 +105,19 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
             {
                 Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
             }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "My Notification");
+            builder.setContentTitle("New Car Added");
+            builder.setContentText("Someone added a new car that may interest you.");
+            builder.setSmallIcon(R.drawable.logo);
+            builder.setAutoCancel(true);
+
+            Intent intent = new Intent(AddCarActivity.this, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(AddCarActivity.this
+                    ,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pendingIntent);
+
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+            managerCompat.notify(1,builder.build());
         });
 
 

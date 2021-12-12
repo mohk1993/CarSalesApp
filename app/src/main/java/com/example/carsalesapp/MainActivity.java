@@ -99,10 +99,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_add:
                 Intent addCar = new Intent(this, AddCarActivity.class);
                 startActivity(addCar);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
             case R.id.action_signout:
                 Intent logout = new Intent(this, LoginActivity.class);
                 startActivity(logout);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
             case R.id.myPostsId:
                 Intent currentUserActivity = new Intent(this, CurrentUserActivity.class);
@@ -113,6 +115,16 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
+//    @Override
+//    public void ocCardClick(int position) {
+//        CarEntity carEntity = Objects.requireNonNull(carViewModel.allCars.getValue().get(position));
+//        Log.d("Tag","onCardClick" + carEntity.getId());
+//        Intent intent = new Intent(MainActivity.this,UpdateCarInfoActivity.class);
+//        intent.putExtra(CAR_ID,carEntity.getId());
+//        intent.putExtra(USER_EMAIL,CarFK);
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//    }
 // ======================== Code used for testing and debugging ==============================
 
 /*            for (UserInformation userInformation1:userInformation){
