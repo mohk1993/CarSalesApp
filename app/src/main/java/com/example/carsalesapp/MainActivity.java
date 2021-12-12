@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ import java.util.Objects;
 
 import util.CarApi;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnCardClickListener{
+public class MainActivity extends AppCompatActivity {
 
     public static final String CAR_ID = "car_id";
     public static final String USER_EMAIL = "user_email";
@@ -44,13 +45,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private CarViewModel carViewModel;
-
+    private ImageButton seeMoreBtn;
     private Button addPost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //addPost = findViewById(R.id.addCadrId);
+        seeMoreBtn = findViewById(R.id.seeMoreBtnId);
         recyclerView = findViewById(R.id.recyclerViewId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         carViewModel.getCars().observe(this, carEntities -> {
             // Set the adapter
-            recyclerViewAdapter = new RecyclerViewAdapter(carEntities,MainActivity.this,this);
+            recyclerViewAdapter = new RecyclerViewAdapter(carEntities,MainActivity.this);
             recyclerView.setAdapter(recyclerViewAdapter);
         });
 
@@ -81,10 +83,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         if(userData!=null){
             carApi.setUserName(userData.getString(LoginActivity.USER_EMAIL));
         }
-//        addPost.setOnClickListener(view -> {
-//            Intent addCar = new Intent(MainActivity.this,AddCarActivity.class);
-//            startActivity(addCar);
-//        });
+
     }
 
     @Override
@@ -105,20 +104,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 Intent logout = new Intent(this, LoginActivity.class);
                 startActivity(logout);
                 return true;
+            case R.id.myPostsId:
+                Intent currentUserActivity = new Intent(this, CurrentUserActivity.class);
+                startActivity(currentUserActivity);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void ocCardClick(int position) {
-        CarEntity carEntity = Objects.requireNonNull(carViewModel.allCars.getValue().get(position));
-        Log.d("Tag","onCardClick" + carEntity.getId());
-        Intent intent = new Intent(MainActivity.this,UpdateCarInfoActivity.class);
-        intent.putExtra(CAR_ID,carEntity.getId());
-        intent.putExtra(USER_EMAIL,CarFK);
-        startActivity(intent);
-    }
-
 }
 
 // ======================== Code used for testing and debugging ==============================

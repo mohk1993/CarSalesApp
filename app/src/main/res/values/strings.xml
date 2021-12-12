@@ -17,4 +17,5 @@
     <string name="signout">Signout</string>
 
     <string name="loadMoreVehicles_btn">Load more vehicles</string>
+    <string name="actionMyPosts">My Posts</string>
 </resources>

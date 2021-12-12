@@ -42,14 +42,14 @@ public class LoginActivity extends AppCompatActivity {
 
         userInformationViewModel = new ViewModelProvider .AndroidViewModelFactory(LoginActivity.this
         .getApplication()).create(UserInformationViewModel.class);
+        loginButton.setOnClickListener(view -> {
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
 
-        userInformationViewModel.getAllUsers().observe(this, userInformation -> {
-            loginButton.setOnClickListener(view -> {
-                String email = emailInput.getText().toString().trim();
-                String password = passwordInput.getText().toString().trim();
-                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password))
-                {
-                    if (UserInformationViewModel.getUser(email,password) != null){
+            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password))
+            {
+                userInformationViewModel.getUser(email,password).observe(this, userInformation -> {
+                    if (userInformation != null){
                         Intent logSuccess = new Intent(LoginActivity.this, MainActivity.class);
                         logSuccess.putExtra(USER_EMAIL,email);
                         startActivity(logSuccess);
@@ -58,11 +58,13 @@ public class LoginActivity extends AppCompatActivity {
                     }else {
                         Toast.makeText(this,R.string.failLogin,Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
-                }
-            });
+                });
+
+            }else {
+                Toast.makeText(this,R.string.empty,Toast.LENGTH_SHORT).show();
+            }
         });
+
 
     }
 }

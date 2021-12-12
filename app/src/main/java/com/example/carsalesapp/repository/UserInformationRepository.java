@@ -41,6 +41,8 @@ public class UserInformationRepository {
     }
     public LiveData <UserInformation> getUser(String email, String password){
        return userInformationDao.getUser(email, password); }
+    public LiveData <UserInformation> registerUser(String email){
+        return userInformationDao.registerUser(email); }
     public void updateUser(UserInformation userInformation) {
         UserInformationDb.databaseWriteExecutor.execute(()->userInformationDao.updateUser(userInformation));
     }

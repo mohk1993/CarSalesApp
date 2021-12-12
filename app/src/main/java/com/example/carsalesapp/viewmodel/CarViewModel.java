@@ -14,6 +14,7 @@ import java.util.List;
 public class CarViewModel extends AndroidViewModel {
     public static CarRepository repository;
     public final LiveData<List<CarEntity>> allCars;
+    public  LiveData<List<CarEntity>> allCurrentUserCars;
     public CarViewModel(@NonNull Application application) {
         super(application);
 
@@ -23,6 +24,10 @@ public class CarViewModel extends AndroidViewModel {
 
     public LiveData<List<CarEntity>> getCars(){
         return allCars;
+    }
+    public LiveData<List<CarEntity>> getAllCurrentUsrCars(String currentUser) {
+        allCurrentUserCars = repository.getAllCurrentUsrCars(currentUser);
+        return allCurrentUserCars;
     }
     public static void insert(CarEntity carEntity){repository.insert(carEntity);}
     public LiveData<CarEntity> get(int id) {return repository.get(id);}

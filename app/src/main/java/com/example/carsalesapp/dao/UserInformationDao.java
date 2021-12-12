@@ -20,6 +20,8 @@ public interface UserInformationDao {
     // might have to remove LiveData later.
     @Query("SELECT * FROM users WHERE users.email==:email and users.password==:password")
     LiveData<UserInformation> getUser(String email,String password);
+    @Query("SELECT * FROM users WHERE users.email==:email")
+    LiveData<UserInformation> registerUser(String email);
     @Query("SELECT * FROM users")
     LiveData<List<UserInformation>> getAllUsers();
     @Query("SELECT * FROM users WHERE users.email LIKE :email")

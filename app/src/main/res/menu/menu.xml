@@ -6,8 +6,12 @@
         android:title="@string/menu_title"
         app:showAsAction="ifRoom"
         />
-
+    <item
+        android:id="@+id/myPostsId"
+        android:title="@string/actionMyPosts"
+        app:showAsAction="never" />
     <item android:id="@+id/action_signout"
         android:title="@string/signout"
         app:showAsAction="never"/>
+
 </menu>

@@ -1,5 +1,6 @@
 package com.example.carsalesapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -11,12 +12,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import util.CarApi;
+import util.ImageApi;
 
 public class AddCarActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int GALLERY_CODE = 0;
@@ -76,9 +81,7 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
             Double priceVal = Double.parseDouble(priceTx.getText().toString());
             String manufacturer = manufactureInput.getText().toString().trim();
             imageByte = Converters.BitMapToByte(imageBitmap);
-            Bundle data = getIntent().getExtras();
-            if(data!=null){CarFK = data.getString(MainActivity.USER_EMAIL);}
-            Log.d("FK", "onCreate:FK " + CarFK);
+            ImageApi.getInstance().setImage(imageBitmap);
             if (!TextUtils.isEmpty(model) && !TextUtils.isEmpty(description) && !TextUtils.isEmpty(price)
                     && !TextUtils.isEmpty(manufacturer))
             {
@@ -143,6 +146,11 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = data.getData();
                     carImage.setImageURI(selectedImage);
+                    try {
+                        imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 break;
@@ -154,5 +162,30 @@ public class AddCarActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_add:
+                Intent addCar = new Intent(this, AddCarActivity.class);
+                startActivity(addCar);
+                return true;
+            case R.id.action_signout:
+                Intent logout = new Intent(this, LoginActivity.class);
+                startActivity(logout);
+                return true;
+            case R.id.myPostsId:
+                Intent currentUserActivity = new Intent(this, CurrentUserActivity.class);
+                startActivity(currentUserActivity);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

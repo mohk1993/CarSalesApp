@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@color/white_blue">
+
+    <TextView
+        android:id="@+id/addCarTittle"
+        android:layout_width="match_parent"
+        android:text="Information"
+        android:textColor="@color/link_blue"
+        android:textSize="34sp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/userNameInfoId"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text=" " />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+
+            <ImageView
+                android:id="@+id/CarImageInfoId"
+                android:layout_width="fill_parent"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/logo" />
+            <TextView
+                android:id="@+id/priceLabel"
+                android:layout_width="match_parent"
+                android:text="Car price"
+                android:textColor="@color/link_blue"
+                android:textSize="20sp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/priceInfoId"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:id="@+id/modelLabel"
+                android:layout_width="match_parent"
+                android:text="Car model:"
+                android:textColor="@color/link_blue"
+                android:textSize="20sp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/modelInfoId"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/manufactureLabel"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Car manufacture:"
+                android:textColor="@color/link_blue"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/manufactureInfoId"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:id="@+id/descriptionLabel"
+                android:layout_width="match_parent"
+                android:text="Car description:"
+                android:textColor="@color/link_blue"
+                android:textSize="20sp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/descriptionInfoId"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
