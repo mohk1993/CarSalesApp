@@ -80,12 +80,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
         public ViewHolder(@NonNull View itemView, Context ctx) {
             super(itemView);
             context = ctx;
-            Model = itemView.findViewById(R.id.modelInfoId);
-            Manufacturer = itemView.findViewById(R.id.manufactureInfoId);
-            Price = itemView.findViewById(R.id.priceInfoId);
-            Owner = itemView.findViewById(R.id.userNameInfoId);
-            Description = itemView.findViewById(R.id.descriptionInfoId);
-            carImage = itemView.findViewById(R.id.CarImageInfoId);
+            Model = itemView.findViewById(R.id.model);
+            Manufacturer = itemView.findViewById(R.id.manufacturer);
+            Price = itemView.findViewById(R.id.price);
+            Owner = itemView.findViewById(R.id.userName);
+            Description = itemView.findViewById(R.id.description);
+            carImage = itemView.findViewById(R.id.recyclerCarImage);
             shareButton = itemView.findViewById(R.id.shareBtnId);
             seeMoreButton = itemView.findViewById(R.id.seeMoreBtnId);
             shareButton.setOnClickListener(new View.OnClickListener() {
