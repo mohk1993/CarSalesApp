@@ -38,6 +38,7 @@ import com.squareup.picasso.Target;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,6 +52,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter <RecyclerViewAdapt
     public RecyclerViewAdapter(List<CarEntity> carList, Context context) {
         this.carList = carList;
         this.context = context;
+    }
+
+    public void sortByPriceLH(){
+        Collections.sort(carList);
+    }
+
+    public void sortByPriceHL(){
+        Collections.sort(carList);
+        Collections.reverse(carList);
     }
 
     @NonNull

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity(tableName = "cars2")
-public class CarEntity implements Serializable {
+public class CarEntity implements Serializable, Comparable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "model")
@@ -95,5 +95,16 @@ public class CarEntity implements Serializable {
 
     public void setFK(String FK) {
         this.FK = FK;
+    }
+
+    @Override
+    public int compareTo(Object car) {
+        Double compareTo = ((CarEntity)car).getPrice();
+        if(this.price - ((CarEntity) car).getPrice() > 0){
+            return 1;
+        }else if(this.price - ((CarEntity) car).getPrice() < 0){
+            return -1;
+        }
+        return 0;
     }
 }

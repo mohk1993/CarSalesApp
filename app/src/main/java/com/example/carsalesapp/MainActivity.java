@@ -2,18 +2,8 @@ package com.example.carsalesapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,16 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carsalesapp.adapter.RecyclerViewAdapter;
-import com.example.carsalesapp.model.CarEntity;
-import com.example.carsalesapp.model.CarInformation;
 import com.example.carsalesapp.model.UserInformation;
-import com.example.carsalesapp.viewmodel.CarInformationViewModel;
 import com.example.carsalesapp.viewmodel.CarViewModel;
-import com.example.carsalesapp.viewmodel.UserInformationViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import util.CarApi;
 
@@ -92,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
+            case R.id.sortByPriceHL:
+                recyclerViewAdapter.sortByPriceHL();
+                carViewModel.getCars().observe(this, carEntities -> {
+                            recyclerViewAdapter = new RecyclerViewAdapter(carEntities,MainActivity.this);
+                            recyclerView.setAdapter(recyclerViewAdapter);
+                        });
+                return true;
+            case R.id.sortByPriceLH:
+                recyclerViewAdapter.sortByPriceLH();
+                carViewModel.getCars().observe(this, carEntities -> {
+                    recyclerViewAdapter = new RecyclerViewAdapter(carEntities,MainActivity.this);
+                    recyclerView.setAdapter(recyclerViewAdapter);
+                });
+                return true;
             case R.id.action_add:
                 Intent addCar = new Intent(this, AddCarActivity.class);
                 startActivity(addCar);
