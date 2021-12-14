@@ -45,14 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private CarViewModel carViewModel;
-    private ImageButton seeMoreBtn;
-    private Button addPost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //addPost = findViewById(R.id.addCadrId);
-        seeMoreBtn = findViewById(R.id.seeMoreBtnId);
         recyclerView = findViewById(R.id.recyclerViewId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -109,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.myPostsId:
                 Intent currentUserActivity = new Intent(this, CurrentUserActivity.class);
                 startActivity(currentUserActivity);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
         }
         return super.onOptionsItemSelected(item);

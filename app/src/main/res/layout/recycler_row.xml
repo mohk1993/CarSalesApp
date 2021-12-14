@@ -22,13 +22,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/userName"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/generalPadding"
-                android:text="TextView"
-                android:textSize="20dp" />
+                android:elevation="10dp"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:layout_weight="1"
+                    android:padding="@dimen/generalPadding"
+                    android:text="TextView"
+                    android:textSize="20dp" />
+
+                <ImageButton
+                    android:id="@+id/shareBtnId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_menu_share" />
+
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/recyclerCarImage"
                 android:layout_width="fill_parent"
@@ -84,6 +104,13 @@
                         app:srcCompat="@android:drawable/ic_menu_more" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/timeStampId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date created"
+                    android:textStyle="italic"
+                    android:padding="5dp"></TextView>
             </LinearLayout>
 
         </LinearLayout>
